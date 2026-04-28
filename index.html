@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>HireMagnet – Build Free. Pay ₹99 to Download. Get Hired.</title>
+<meta name="description" content="India's smartest AI resume builder. Build free, pay ₹99 only to download. ATS-optimized. Works perfectly on mobile."/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{max-width:100vw;overflow-x:hidden}
+:root{--or:#FF5722;--dark:#09090F;--card:#12121A;--border:#1E1E28;--text:#EEEEF5;--muted:#7777AA;--green:#00E676;--yellow:#FFD600;--white:#fff}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--dark);color:var(--text);-webkit-font-smoothing:antialiased}
+
+/* TOPBAR */
+.topbar{background:var(--or);padding:8px 16px;text-align:center;font-size:12px;font-weight:700;color:#fff;line-height:1.4}
+
+/* NAV */
+nav{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:rgba(9,9,15,.98);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.logo{font-size:20px;font-weight:800;color:#fff;text-decoration:none}
+.logo span{color:var(--or)}
+.nav-earn{background:transparent;color:var(--green);border:1px solid var(--green);padding:7px 14px;border-radius:100px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+
+/* HERO */
+.hero{padding:36px 16px 28px;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:#1A1A2E;border:1px solid var(--border);color:#FF8A65;font-size:12px;font-weight:600;padding:5px 14px;border-radius:100px;margin-bottom:16px}
+.dot{width:6px;height:6px;background:var(--or);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:clamp(28px,8vw,48px);font-weight:800;line-height:1.1;letter-spacing:-1.5px;color:#fff;margin-bottom:12px}
+.hero h1 em{font-style:normal;color:var(--or)}
+.hero-sub{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:20px}
+.price-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:20px}
+.pr{background:var(--card);padding:12px 6px;text-align:center}
+.pr-p{font-size:17px;font-weight:800;color:var(--or)}
+.pr-l{font-size:10px;color:var(--muted);margin-top:2px;line-height:1.3}
+.hero-btns{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.btn-main{background:var(--or);color:#fff;border:none;padding:16px;border-radius:14px;font-size:17px;font-weight:800;cursor:pointer;font-family:inherit;width:100%}
+.btn-ref{background:transparent;color:var(--green);border:1px solid var(--green);padding:13px;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;width:100%}
+.trust-row{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+.ti{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted)}
+.ti-dot{width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0}
+
+/* TICKER */
+.ticker{background:var(--or);padding:9px 0;overflow:hidden;white-space:nowrap}
+.ticker-in{display:inline-flex;gap:40px;animation:tick 28s linear infinite}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ti-item{font-size:11px;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase;flex-shrink:0}
+
+/* NUMBERS */
+.nums{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.num{background:var(--dark);padding:20px 16px;text-align:center}
+.num-v{font-size:32px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1}
+.num-v span{color:var(--or)}
+.num-l{font-size:12px;color:var(--muted);margin-top:4px}
+
+/* SECTIONS */
+.sec{padding:44px 16px}
+.tag{display:inline-block;background:#1A1A2E;color:#FF8A65;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:100px;border:1px solid var(--border);margin-bottom:12px}
+.h2{font-size:clamp(22px,6vw,34px);font-weight:800;color:#fff;letter-spacing:-.5px;margin-bottom:10px;line-height:1.2}
+.sub{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:28px}
+
+/* HOW IT WORKS */
+.steps-list{display:flex;flex-direction:column;gap:14px}
+.step-row{display:flex;align-items:flex-start;gap:14px}
+.step-n{width:38px;height:38px;border-radius:50%;background:var(--or);color:#fff;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-n.gr{background:var(--green);color:#000}
+.step-body h4{font-size:15px;font-weight:700;color:#fff;margin-bottom:3px}
+.step-body p{font-size:13px;color:var(--muted);line-height:1.55}
+
+/* FEATURES */
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.feat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px}
+.feat-ico{font-size:22px;margin-bottom:8px}
+.feat-card h3{font-size:14px;font-weight:700;color:#fff;margin-bottom:4px}
+.feat-card p{font-size:12px;color:var(--muted);line-height:1.55}
+
+/* PRICING */
+.plan-list{display:flex;flex-direction:column;gap:12px}
+.plan{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;position:relative}
+.plan.hot{border-color:var(--or);background:#130C07}
+.plan-pill{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--or);color:#fff;font-size:10px;font-weight:800;padding:3px 14px;border-radius:100px;white-space:nowrap}
+.plan-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.plan-name{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+.plan-price{font-size:28px;font-weight:800;color:#fff;line-height:1}
+.plan-price sub{font-size:11px;font-weight:400;color:var(--muted)}
+.plan-desc{font-size:13px;color:var(--muted);margin-bottom:12px;line-height:1.5}
+.plan-feats{list-style:none;margin-bottom:14px}
+.plan-feats li{font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.plan-feats li::before{content:'';width:12px;height:12px;border-radius:50%;background:#0D2B1A;border:1.5px solid var(--green);flex-shrink:0}
+.plan-feats li.no{color:var(--muted)}
+.plan-feats li.no::before{background:var(--card);border-color:var(--border)}
+.plan-btn{width:100%;padding:13px;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;border:1px solid var(--or);background:var(--or);color:#fff}
+.plan-btn.ghost{background:transparent;border-color:var(--border);color:var(--text)}
+
+/* REFERRAL */
+.ref-sec{background:var(--card);padding:44px 16px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.ref-card{background:var(--dark);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:12px}
+.ref-card h3{font-size:16px;font-weight:800;color:#fff;margin-bottom:6px}
+.ref-card p{font-size:13px;color:var(--muted);margin-bottom:14px}
+.tier{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.tier.hot{border-color:var(--green);background:#0A1A0D}
+.tier-n{font-size:13px;font-weight:600;color:#fff}
+.tier-d{font-size:11px;color:var(--muted);margin-top:2px}
+.tier-e{font-size:18px;font-weight:800;color:var(--green)}
+/* PUBLIC REFERRAL LINK BOX */
+.pub-ref{background:var(--dark);border:1px solid var(--green);border-radius:16px;padding:18px;margin-top:14px}
+.pub-ref h4{font-size:15px;font-weight:800;color:#fff;margin-bottom:4px}
+.pub-ref p{font-size:13px;color:var(--muted);margin-bottom:14px}
+.pub-link-val{font-size:12px;color:var(--text);font-family:monospace;background:var(--card);padding:10px 12px;border-radius:8px;margin-bottom:10px;word-break:break-all;border:1px solid var(--border)}
+.share-row{display:flex;gap:8px}
+.sh-btn{flex:1;padding:10px;border-radius:100px;border:none;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+.sh-wa{background:#25D366;color:#fff}
+.sh-cp{background:var(--border);color:var(--text)}
+
+/* TESTIMONIALS */
+.testi-list{display:flex;flex-direction:column;gap:12px}
+.testi{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px}
+.testi.hot{border-color:var(--or);background:#130C07}
+.testi-stars{color:var(--yellow);font-size:13px;letter-spacing:3px;margin-bottom:8px}
+.testi-q{font-size:14px;color:var(--text);line-height:1.7;margin-bottom:12px;font-style:italic}
+.testi-p{display:flex;align-items:center;gap:10px}
+.testi-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0}
+.testi-name{font-size:13px;font-weight:700;color:#fff}
+.testi-role{font-size:11px;color:var(--muted)}
+.testi-badge{display:inline-block;background:#0D2B1A;color:var(--green);font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;margin-top:4px}
+
+/* FAQ */
+.faq-list{display:flex;flex-direction:column;gap:8px}
+.faq-item{border:1px solid var(--border);border-radius:13px;background:var(--card);overflow:hidden}
+.faq-q{padding:14px 16px;font-weight:600;font-size:14px;color:#fff;cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none;-webkit-tap-highlight-color:transparent;gap:8px}
+.faq-ico{font-size:16px;color:var(--muted);transition:transform .3s;flex-shrink:0}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .3s;padding:0 16px;font-size:13px;color:var(--muted);line-height:1.7}
+.faq-item.open .faq-a{max-height:200px;padding:0 16px 14px}
+.faq-item.open .faq-ico{transform:rotate(45deg);color:var(--or)}
+
+/* CTA */
+.cta-band{background:var(--or);padding:44px 16px;text-align:center}
+.cta-band h2{font-size:clamp(22px,7vw,38px);font-weight:800;color:#fff;letter-spacing:-1px;margin-bottom:10px;line-height:1.2}
+.cta-band p{font-size:15px;color:rgba(255,255,255,.85);margin-bottom:22px}
+.cta-big{background:var(--dark);color:#fff;border:none;padding:16px;border-radius:14px;font-size:17px;font-weight:800;cursor:pointer;font-family:inherit;width:100%}
+
+/* FOOTER */
+footer{background:#060609;padding:28px 16px;border-top:1px solid var(--border)}
+.footer-logo{font-size:19px;font-weight:800;color:#fff;margin-bottom:6px}
+.footer-logo span{color:var(--or)}
+.footer-links{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px}
+.footer-links a{color:var(--muted);font-size:13px;text-decoration:none}
+.footer-copy{font-size:11px;color:var(--muted);line-height:1.6}
+
+/* ═══════════════════════════
+   BUILDER POPUP
+═══════════════════════════ */
+.bld-ov{display:none;position:fixed;inset:0;background:var(--dark);z-index:500;flex-direction:column;overflow:hidden}
+.bld-ov.show{display:flex}
+.bld-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--card);flex-shrink:0}
+.bld-hdr h2{font-size:15px;font-weight:800;color:#fff}
+.bld-close{background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1;padding:4px}
+.step-bar{display:flex;padding:10px 16px;gap:5px;background:var(--card);border-bottom:1px solid var(--border);flex-shrink:0}
+.sb{flex:1;height:4px;border-radius:100px;background:var(--border);transition:background .3s}
+.sb.done{background:var(--or)}
+.sb.active{background:var(--or);opacity:.5}
+.bld-body{flex:1;overflow-y:auto;padding:18px 16px;-webkit-overflow-scrolling:touch}
+.bstep{display:none}
+.bstep.active{display:block}
+.bs-title{font-size:18px;font-weight:800;color:#fff;margin-bottom:3px}
+.bs-sub{font-size:13px;color:var(--muted);margin-bottom:18px}
+/* FORM */
+.fg{margin-bottom:12px}
+.fg label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:600}
+.fg input,.fg textarea{width:100%;background:#0D0D16;border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:var(--text);font-size:15px;font-family:inherit;outline:none;-webkit-appearance:none}
+.fg input:focus,.fg textarea:focus{border-color:var(--or)}
+.fg textarea{resize:none}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.block{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px;position:relative}
+.block h5{font-size:13px;font-weight:700;color:#fff;margin-bottom:10px;padding-right:22px}
+.rm-btn{position:absolute;top:12px;right:12px;background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;line-height:1}
+.add-btn{width:100%;padding:12px;border-radius:10px;border:1px dashed var(--border);background:transparent;color:var(--muted);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:4px}
+/* PREVIEW */
+.tpl-row{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+.tpl-btn{flex-shrink:0;padding:7px 16px;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.tpl-btn.active{border-color:var(--or);color:var(--or);background:#1A0D08}
+.ats-bar{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.ats-l{font-size:13px;font-weight:700;color:#fff}
+.ats-d{font-size:11px;color:var(--muted);margin-top:2px}
+.ats-v{font-size:26px;font-weight:800;color:var(--green)}
+.preview-box{background:#fff;border-radius:12px;padding:18px;min-height:280px;font-family:'Plus Jakarta Sans',sans-serif;position:relative;overflow:hidden}
+.lock-over{position:absolute;inset:0;background:rgba(9,9,15,.8);backdrop-filter:blur(6px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;border-radius:12px}
+.lock-icon{font-size:36px;margin-bottom:10px}
+.lock-over h3{font-size:17px;font-weight:800;color:#fff;margin-bottom:6px}
+.lock-over p{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:16px}
+.unlock-btn{background:var(--or);color:#fff;border:none;padding:13px 28px;border-radius:100px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit}
+/* BUILDER FOOTER */
+.bld-foot{padding:10px 16px;border-top:1px solid var(--border);background:var(--card);flex-shrink:0;display:flex;gap:8px}
+.bf{flex:1;padding:13px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;border:none}
+.bf-next{background:var(--or);color:#fff}
+.bf-prev{background:var(--border);color:var(--text)}
+.bf-ai{background:var(--green);color:#000;flex:1.2}
+
+/* ═══════════════════════════
+   COVER LETTER POPUP
+═══════════════════════════ */
+.cl-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:600;align-items:flex-end;justify-content:center}
+.cl-ov.show{display:flex}
+.cl-sheet{background:var(--card);border-radius:20px 20px 0 0;padding:20px 16px;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.cl-handle{width:36px;height:4px;background:var(--border);border-radius:100px;margin:0 auto 14px}
+.cl-sheet h3{font-size:18px;font-weight:800;color:#fff;margin-bottom:4px}
+.cl-sheet p{font-size:13px;color:var(--muted);margin-bottom:16px}
+.cl-out{background:#fff;border-radius:12px;padding:16px;font-size:13px;color:#333;line-height:1.7;min-height:120px;margin-bottom:14px;white-space:pre-wrap;display:none}
+.cl-gen-btn{width:100%;background:var(--or);color:#fff;border:none;padding:14px;border-radius:100px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;margin-bottom:10px}
+.cl-dl-btn{width:100%;background:var(--green);color:#000;border:none;padding:14px;border-radius:100px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;display:none}
+
+/* ═══════════════════════════
+   PAYMENT SHEET
+═══════════════════════════ */
+.pay-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:600;align-items:flex-end;justify-content:center}
+.pay-ov.show{display:flex}
+.pay-sheet{background:var(--card);border-radius:20px 20px 0 0;padding:20px 16px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.pay-handle{width:36px;height:4px;background:var(--border);border-radius:100px;margin:0 auto 14px}
+.pay-sheet h3{font-size:18px;font-weight:800;color:#fff;margin-bottom:4px}
+.pay-sheet .psub{font-size:13px;color:var(--muted);margin-bottom:16px}
+.pay-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.pay-opt{border:1px solid var(--border);border-radius:12px;padding:12px;cursor:pointer;text-align:center;background:var(--dark);-webkit-tap-highlight-color:transparent}
+.pay-opt.sel{border-color:var(--or);background:#130C07}
+.pay-price{font-size:20px;font-weight:800;color:var(--or)}
+.pay-name{font-size:11px;color:var(--muted);margin-top:2px}
+.pay-tag{font-size:10px;background:#0D2B1A;color:var(--green);padding:2px 7px;border-radius:100px;margin-top:4px;display:inline-block}
+.pfg{margin-bottom:10px}
+.pfg label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:600}
+.pfg input{width:100%;background:#0D0D16;border:1px solid var(--border);border-radius:10px;padding:12px 14px;color:#fff;font-size:15px;font-family:inherit;outline:none;-webkit-appearance:none}
+.pfg input:focus{border-color:var(--or)}
+.do-pay{width:100%;background:var(--or);color:#fff;border:none;padding:15px;border-radius:100px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;margin-top:8px}
+.rzp-note{text-align:center;font-size:11px;color:var(--muted);margin-top:8px}
+
+/* ═══════════════════════════
+   REFERRAL SHEET
+═══════════════════════════ */
+.ref-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:600;align-items:flex-end;justify-content:center}
+.ref-ov.show{display:flex}
+.ref-sheet{background:var(--card);border-radius:20px 20px 0 0;padding:20px 16px;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.ref-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}
+.rs{background:var(--dark);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center}
+.rs-v{font-size:22px;font-weight:800;color:var(--or)}
+.rs-l{font-size:10px;color:var(--muted);margin-top:2px}
+.ref-link-box{background:var(--dark);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px}
+.ref-link-val{font-size:12px;color:var(--text);font-family:monospace;background:var(--card);padding:9px 12px;border-radius:8px;margin-bottom:10px;word-break:break-all}
+.ref-share-row{display:flex;gap:8px}
+.rsh{flex:1;padding:10px;border-radius:100px;border:none;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
+.rsh-wa{background:#25D366;color:#fff}
+.rsh-li{background:#0A66C2;color:#fff}
+.rsh-cp{background:var(--border);color:var(--text)}
+.wd-box{background:var(--dark);border:1px solid var(--border);border-radius:12px;padding:14px}
+.wd-box h4{font-size:14px;font-weight:700;color:#fff;margin-bottom:3px}
+.wd-box p{font-size:12px;color:var(--muted);margin-bottom:10px}
+
+/* SUCCESS */
+#succ{display:none;position:fixed;inset:0;background:var(--dark);z-index:700;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+#succ.show{display:flex}
+</style>
+</head>
+<body>
+
+<div class="topbar">🧲 HireMagnet — Build FREE · Pay ₹99 to Download · Earn ₹30/Referral</div>
+
+<nav>
+  <a class="logo" href="#">Hire<span>Magnet</span></a>
+  <button class="nav-earn" onclick="openRef()">💰 Earn ₹30</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge"><span class="dot"></span> AI Resume Builder — Made for India</div>
+  <h1>Build Free.<br>Pay Only to<br><em>Download.</em></h1>
+  <p class="hero-sub">No subscription. No upfront fee. Build your resume, see the full preview — pay ₹99 only when you love it and want to apply.</p>
+  <div class="price-row">
+    <div class="pr"><div class="pr-p">₹0</div><div class="pr-l">Build &amp; Preview</div></div>
+    <div class="pr"><div class="pr-p">₹99</div><div class="pr-l">Resume PDF</div></div>
+    <div class="pr"><div class="pr-p">₹129</div><div class="pr-l">Resume+Letter</div></div>
+    <div class="pr"><div class="pr-p">₹299</div><div class="pr-l">Unlimited/mo</div></div>
+  </div>
+  <div class="hero-btns">
+    <button class="btn-main" onclick="openBuilder()">✨ Build My Resume — It's Free</button>
+    <button class="btn-ref" onclick="openRef()">💰 Earn ₹30 Per Referral</button>
+  </div>
+  <div class="trust-row">
+    <span class="ti"><span class="ti-dot"></span>Build free, pay to download</span>
+    <span class="ti"><span class="ti-dot"></span>UPI · Cards · Net Banking</span>
+    <span class="ti"><span class="ti-dot"></span>No subscription</span>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker"><div class="ticker-in">
+  <span class="ti-item">&#10022; Build Free</span><span class="ti-item">&#10022; Pay ₹99 to Download</span><span class="ti-item">&#10022; AI Writing</span><span class="ti-item">&#10022; ATS Checker</span><span class="ti-item">&#10022; Cover Letter</span><span class="ti-item">&#10022; Earn ₹30/Referral</span><span class="ti-item">&#10022; No Subscription</span><span class="ti-item">&#10022; Build Free</span><span class="ti-item">&#10022; Pay ₹99 to Download</span><span class="ti-item">&#10022; AI Writing</span><span class="ti-item">&#10022; ATS Checker</span><span class="ti-item">&#10022; Cover Letter</span><span class="ti-item">&#10022; Earn ₹30/Referral</span><span class="ti-item">&#10022; No Subscription</span>
+</div></div>
+
+<!-- NUMBERS -->
+<div class="nums">
+  <div class="num"><div class="num-v">50<span>K+</span></div><div class="num-l">Resumes Built</div></div>
+  <div class="num"><div class="num-v">92<span>%</span></div><div class="num-l">Interview Rate</div></div>
+  <div class="num"><div class="num-v">₹99</div><div class="num-l">Per Download</div></div>
+  <div class="num"><div class="num-v">₹30</div><div class="num-l">Per Referral</div></div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="sec">
+  <div class="tag">How It Works</div>
+  <h2 class="h2">5 steps to your dream job</h2>
+  <p class="sub">Build free. See your resume. Pay only when you love it.</p>
+  <div class="steps-list">
+    <div class="step-row"><div class="step-n">1</div><div class="step-body"><h4>Fill Your Details</h4><p>Name, experience, education, skills. Takes 3 minutes.</p></div></div>
+    <div class="step-row"><div class="step-n">2</div><div class="step-body"><h4>Pick a Template</h4><p>Choose from 200+ ATS-friendly designs for your industry.</p></div></div>
+    <div class="step-row"><div class="step-n">3</div><div class="step-body"><h4>AI Writes It</h4><p>Paste the job role — AI rewrites your content to match it.</p></div></div>
+    <div class="step-row"><div class="step-n">4</div><div class="step-body"><h4>See Full Preview Free</h4><p>See your complete beautiful resume — no payment yet.</p></div></div>
+    <div class="step-row"><div class="step-n gr">5</div><div class="step-body"><h4>Pay ₹99 → Download</h4><p>Happy with it? Pay via UPI or card. Get PDF instantly.</p></div></div>
+  </div>
+  <button class="btn-main" style="margin-top:22px" onclick="openBuilder()">Start Building — Free →</button>
+</section>
+
+<!-- FEATURES -->
+<section class="sec" style="padding-top:0">
+  <div class="tag">Features</div>
+  <h2 class="h2">Everything to get you hired</h2>
+  <p class="sub">AI tools that think like a recruiter.</p>
+  <div class="feat-grid">
+    <div class="feat-card"><div class="feat-ico">🤖</div><h3>AI Content Writer</h3><p>AI rewrites your resume to match any job description perfectly.</p></div>
+    <div class="feat-card"><div class="feat-ico">📊</div><h3>ATS Score Checker</h3><p>Know your ATS score before applying. Hit 85+ to get noticed.</p></div>
+    <div class="feat-card"><div class="feat-ico">🎨</div><h3>200+ Templates</h3><p>Designs for IT, finance, MBA, fresher and more.</p></div>
+    <div class="feat-card"><div class="feat-ico">✉️</div><h3>Cover Letter AI</h3><p>AI generates a matching cover letter for any job in 30 seconds.</p></div>
+    <div class="feat-card"><div class="feat-ico">⚡</div><h3>Instant PDF</h3><p>Pixel-perfect PDF every time. No broken formatting.</p></div>
+    <div class="feat-card"><div class="feat-ico">💰</div><h3>Earn ₹30/Referral</h3><p>Share your link. Earn ₹30 every time a friend pays.</p></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="sec" style="padding-top:0" id="pricing">
+  <div class="tag">Pricing</div>
+  <h2 class="h2">Pay only when you download</h2>
+  <p class="sub">Build unlimited resumes free. Pay only when you're ready to apply.</p>
+  <div class="plan-list">
+    <div class="plan">
+      <div class="plan-top"><div><div class="plan-name">Free Preview</div><div class="plan-price">₹0</div></div></div>
+      <div class="plan-desc">Build and preview your full resume — completely free.</div>
+      <ul class="plan-feats"><li>Unlimited building</li><li>Full live preview</li><li>ATS score checker</li><li class="no">PDF download</li><li class="no">Cover letter</li></ul>
+      <button class="plan-btn ghost" onclick="openBuilder()">Start Building Free</button>
+    </div>
+    <div class="plan">
+      <div class="plan-top"><div><div class="plan-name">Resume Download</div><div class="plan-price">₹99 <sub>/download</sub></div></div></div>
+      <div class="plan-desc">Pay each time you download a tailored resume for a job.</div>
+      <ul class="plan-feats"><li>AI-written resume</li><li>ATS optimized PDF</li><li>200+ templates</li><li>Word doc included</li><li class="no">Cover letter</li></ul>
+      <button class="plan-btn" onclick="openPay('resume',99,'Resume PDF')">Download for ₹99</button>
+    </div>
+    <div class="plan hot">
+      <div class="plan-pill">Best Value</div>
+      <div class="plan-top" style="margin-top:8px"><div><div class="plan-name">Resume + Cover Letter</div><div class="plan-price">₹129 <sub>/download</sub></div></div></div>
+      <div class="plan-desc">Resume + AI cover letter. Save ₹19 vs buying separately.</div>
+      <ul class="plan-feats"><li>AI resume + cover letter</li><li>Job-matched writing</li><li>ATS optimized</li><li>Both as PDF</li><li>Matching design</li></ul>
+      <button class="plan-btn" onclick="openPay('bundle',129,'Resume + Cover Letter')">Download for ₹129</button>
+    </div>
+    <div class="plan">
+      <div class="plan-top"><div><div class="plan-name">Unlimited Monthly</div><div class="plan-price">₹299 <sub>/month</sub></div></div></div>
+      <div class="plan-desc">Applying to 3+ jobs? Unlimited downloads for the whole month.</div>
+      <ul class="plan-feats"><li>Unlimited downloads</li><li>Unlimited cover letters</li><li>LinkedIn optimizer</li><li>Priority support</li><li>Referral dashboard</li></ul>
+      <button class="plan-btn" onclick="openPay('unlimited',299,'Unlimited Monthly')">Get Unlimited ₹299/mo</button>
+    </div>
+  </div>
+</section>
+
+<!-- REFERRAL SECTION -->
+<section class="ref-sec" id="referral">
+  <div class="tag">Earn Money</div>
+  <h2 class="h2">Share HireMagnet.<br>Earn ₹30 per referral.</h2>
+  <p class="sub">No limit on earnings. Share your link — earn every time someone pays.</p>
+  <div class="ref-card">
+    <h3>💰 Earning Potential</h3>
+    <p>See how much you can make just by sharing</p>
+    <div class="tier"><div><div class="tier-n">10 referrals/month</div><div class="tier-d">Casual sharer</div></div><div class="tier-e">₹300</div></div>
+    <div class="tier"><div><div class="tier-n">50 referrals/month</div><div class="tier-d">Active promoter</div></div><div class="tier-e">₹1,500</div></div>
+    <div class="tier hot"><div><div class="tier-n">200 referrals/month</div><div class="tier-d">Power affiliate</div></div><div class="tier-e">₹6,000</div></div>
+    <div class="tier"><div><div class="tier-n">500 referrals/month</div><div class="tier-d">College ambassador</div></div><div class="tier-e">₹15,000</div></div>
+  </div>
+  <!-- PUBLIC REFERRAL LINK — visible to everyone -->
+  <div class="pub-ref">
+    <h4>🔗 Get Your Referral Link Now</h4>
+    <p>Share this with friends. Earn ₹30 every time they pay. Withdraw to UPI every Monday.</p>
+    <div class="pub-link-val" id="pubLink">hiremagnet.in/ref/loading...</div>
+    <div class="share-row">
+      <button class="sh-btn sh-wa" onclick="pubShareWA()">📱 Share on WhatsApp</button>
+      <button class="sh-btn sh-cp" id="pubCpBtn" onclick="pubCopy()">📋 Copy Link</button>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec">
+  <div class="tag">Results</div>
+  <h2 class="h2">₹99 that changed their careers</h2>
+  <p class="sub">Real job seekers. Real interviews. Real offers.</p>
+  <div class="testi-list">
+    <div class="testi">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-q">"I loved that I could see my full resume before paying. Once I saw how good it looked I paid ₹99 immediately. Got 3 interview calls in a week."</p>
+      <div class="testi-p"><div class="testi-av" style="background:#FF5722">RV</div><div><div class="testi-name">Rohit Verma</div><div class="testi-role">B.Tech Fresher, Lucknow</div><div class="testi-badge">Offer at Infosys</div></div></div>
+    </div>
+    <div class="testi hot">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-q">"Shared my referral link in my college WhatsApp group. 42 friends signed up, 28 paid. Earned ₹840 in 3 days without doing anything extra!"</p>
+      <div class="testi-p"><div class="testi-av" style="background:#9C27B0">NS</div><div><div class="testi-name">Neha Sharma</div><div class="testi-role">MBA Student, Delhi</div><div class="testi-badge">Earned ₹840 in 3 days</div></div></div>
+    </div>
+    <div class="testi">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-q">"My old resume scored 34/100 on ATS. After HireMagnet it hit 96. Switched from TCS to Razorpay at 2.2x salary."</p>
+      <div class="testi-p"><div class="testi-av" style="background:#00897B">AJ</div><div><div class="testi-name">Arpit Jain</div><div class="testi-role">5 Yrs Exp, Pune</div><div class="testi-badge">TCS → Razorpay 2.2x</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec" style="padding-top:0">
+  <div class="tag">FAQ</div>
+  <h2 class="h2" style="margin-bottom:18px">Questions? Answered.</h2>
+  <div class="faq-list">
+    <div class="faq-item"><div class="faq-q" onclick="faq(this)">Do I really build for free? <span class="faq-ico">+</span></div><div class="faq-a">100% yes. Build your complete resume, change templates, use AI writing, see full preview — all free. You only pay ₹99 when you want to download the PDF.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="faq(this)">Should I download one resume for all jobs? <span class="faq-ico">+</span></div><div class="faq-a">No! Tailoring your resume to each job description gets you 3x more responses. Our AI rewrites your content to match each job. Each tailored download is ₹99.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="faq(this)">How do referral earnings work? <span class="faq-ico">+</span></div><div class="faq-a">You get a unique referral link. Every time someone clicks your link and completes a payment, ₹30 is credited to your wallet. Withdraw to any UPI every Monday. No cap on earnings.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="faq(this)">What payment methods are accepted? <span class="faq-ico">+</span></div><div class="faq-a">All Indian payments via Razorpay — UPI (GPay, PhonePe, Paytm, BHIM), debit/credit cards, net banking, and EMI. 100% secure and instant.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="faq(this)">Will my resume pass ATS systems? <span class="faq-ico">+</span></div><div class="faq-a">Yes. All templates are built ATS-first. The score checker shows your exact rank before you download. We recommend downloading only when you score 85+.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="faq(this)">What is a cover letter and do I need one? <span class="faq-ico">+</span></div><div class="faq-a">A cover letter is a short personalized note to the employer explaining why you're the right fit. Our AI writes it in 30 seconds based on your resume and the job description. Top companies expect one.</div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band">
+  <h2>Your Next Interview<br>is ₹99 Away</h2>
+  <p>Build free. Pay only when you're ready. Get hired faster.</p>
+  <button class="cta-big" onclick="openBuilder()">Build My Resume — Free →</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Hire<span>Magnet</span></div>
+  <div class="footer-links">
+    <a href="#pricing">Pricing</a>
+    <a href="#referral">Earn Money</a>
+    <a href="mailto:hello@hiremagnet.in">Contact</a>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Service</a>
+  </div>
+  <div class="footer-copy">© 2026 HireMagnet.in — Built to get India hired<br>Payments secured by Razorpay · UPI: vanshchangrani412-3@okicici</div>
+</footer>
+
+<!-- ═══ BUILDER POPUP ═══ -->
+<div class="bld-ov" id="bldOv">
+  <div class="bld-hdr">
+    <h2 id="bhdTitle">Step 1 — Basic Info</h2>
+    <button class="bld-close" onclick="closeBuilder()">×</button>
+  </div>
+  <div class="step-bar">
+    <div class="sb active" id="sb1"></div><div class="sb" id="sb2"></div><div class="sb" id="sb3"></div><div class="sb" id="sb4"></div><div class="sb" id="sb5"></div>
+  </div>
+  <div class="bld-body" id="bldBody">
+    <!-- STEP 1 -->
+    <div class="bstep active" id="bs1">
+      <div class="bs-title">Basic Information</div>
+      <div class="bs-sub">Start with who you are</div>
+      <div class="fg"><label>Full Name *</label><input type="text" id="b-name" placeholder="Rahul Sharma" oninput="lp()"/></div>
+      <div class="fg"><label>Job Title *</label><input type="text" id="b-title" placeholder="Software Engineer" oninput="lp()"/></div>
+      <div class="fg-row">
+        <div class="fg"><label>Email *</label><input type="email" id="b-email" placeholder="rahul@gmail.com" oninput="lp()"/></div>
+        <div class="fg"><label>Phone *</label><input type="tel" id="b-phone" placeholder="9876543210" oninput="lp()"/></div>
+      </div>
+      <div class="fg-row">
+        <div class="fg"><label>City</label><input type="text" id="b-city" placeholder="Mumbai" oninput="lp()"/></div>
+        <div class="fg"><label>LinkedIn</label><input type="text" id="b-li" placeholder="linkedin.com/in/rahul" oninput="lp()"/></div>
+      </div>
+      <div class="fg"><label>Professional Summary</label><textarea id="b-summary" placeholder="Brief summary about yourself..." rows="3" oninput="lp()"></textarea></div>
+    </div>
+    <!-- STEP 2 -->
+    <div class="bstep" id="bs2">
+      <div class="bs-title">Work Experience</div>
+      <div class="bs-sub">Add your work history (most recent first)</div>
+      <div id="exp-list"></div>
+      <button class="add-btn" onclick="addExp()">+ Add Work Experience</button>
+    </div>
+    <!-- STEP 3 -->
+    <div class="bstep" id="bs3">
+      <div class="bs-title">Education</div>
+      <div class="bs-sub">Add your educational background</div>
+      <div id="edu-list"></div>
+      <button class="add-btn" onclick="addEdu()">+ Add Education</button>
+    </div>
+    <!-- STEP 4 -->
+    <div class="bstep" id="bs4">
+      <div class="bs-title">Skills & More</div>
+      <div class="bs-sub">Add skills, certifications and languages</div>
+      <div class="fg"><label>Skills (comma separated) *</label><textarea id="b-skills" placeholder="JavaScript, React, Node.js, Python, Communication..." rows="3" oninput="lp()"></textarea></div>
+      <div class="fg"><label>Certifications (optional)</label><textarea id="b-certs" placeholder="AWS Certified, Google Analytics..." rows="2" oninput="lp()"></textarea></div>
+      <div class="fg"><label>Languages</label><input type="text" id="b-langs" placeholder="Hindi, English" oninput="lp()"/></div>
+      <div class="fg"><label>Job Description (paste for AI to tailor your resume)</label><textarea id="b-jd" placeholder="Paste the job description here — AI will tailor your resume to match it perfectly..." rows="4"></textarea></div>
+    </div>
+    <!-- STEP 5 -->
+    <div class="bstep" id="bs5">
+      <div class="bs-title">Your Resume is Ready!</div>
+      <div class="bs-sub">See your full preview. Pay ₹99 to download.</div>
+      <div class="tpl-row">
+        <button class="tpl-btn active" onclick="setTpl('modern',this)">Modern</button>
+        <button class="tpl-btn" onclick="setTpl('minimal',this)">Minimal</button>
+        <button class="tpl-btn" onclick="setTpl('bold',this)">Bold</button>
+      </div>
+      <div class="ats-bar">
+        <div><div class="ats-l">ATS Score</div><div class="ats-d" id="atsLbl">Fill details to see score</div></div>
+        <div class="ats-v" id="atsVal">--</div>
+      </div>
+      <div class="preview-box" id="prevBox">
+        <div class="lock-over" id="lockOver">
+          <div class="lock-icon">📄</div>
+          <h3>Fill Details First</h3>
+          <p>Complete the previous steps to see your beautiful resume here.</p>
+          <button class="unlock-btn" onclick="goStep(1)">Go Back & Fill Details</button>
+        </div>
+      </div>
+      <button onclick="openCoverLetter()" style="width:100%;margin-top:12px;background:var(--card);color:var(--green);border:1px solid var(--green);padding:13px;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit">✉️ Generate AI Cover Letter</button>
+      <button onclick="openPay()" style="width:100%;margin-top:10px;background:var(--or);color:#fff;border:none;padding:15px;border-radius:100px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit">🔓 Unlock & Download — ₹99 →</button>
+      <div style="text-align:center;font-size:11px;color:var(--muted);margin-top:8px">UPI · Cards · Net Banking · Secured by Razorpay</div>
+    </div>
+  </div>
+  <div class="bld-foot">
+    <button class="bf bf-prev" id="prevBtn" onclick="prevStep()" style="display:none">← Back</button>
+    <button class="bf bf-ai" id="aiBtn" onclick="aiGenerate()">✨ AI Fill</button>
+    <button class="bf bf-next" id="nextBtn" onclick="nextStep()">Next →</button>
+  </div>
+</div>
+
+<!-- ═══ COVER LETTER POPUP ═══ -->
+<div class="cl-ov" id="clOv" onclick="closeCLOut(event)">
+  <div class="cl-sheet">
+    <div class="cl-handle"></div>
+    <h3>✉️ AI Cover Letter Generator</h3>
+    <p>Generates a personalized cover letter based on your resume and job description.</p>
+    <div class="fg"><label>Company Name</label><input type="text" id="cl-company" placeholder="Google India, Infosys, Swiggy..."/></div>
+    <div class="fg"><label>Job Role</label><input type="text" id="cl-role" placeholder="Software Engineer, Marketing Manager..."/></div>
+    <div class="fg"><label>Why do you want this job? (optional)</label><textarea id="cl-why" placeholder="I am passionate about..." rows="3"></textarea></div>
+    <div class="cl-out" id="clOut"></div>
+    <button class="cl-gen-btn" id="clGenBtn" onclick="generateCL()">✨ Generate Cover Letter</button>
+    <button class="cl-dl-btn" id="clDlBtn" onclick="downloadCL()">⬇️ Download Cover Letter — ₹49</button>
+  </div>
+</div>
+
+<!-- ═══ PAYMENT SHEET ═══ -->
+<div class="pay-ov" id="payOv" onclick="closePayOut(event)">
+  <div class="pay-sheet">
+    <div class="pay-handle"></div>
+    <h3>Unlock Your Resume</h3>
+    <p class="psub">Select what to download and pay securely</p>
+    <div class="pay-opts">
+      <div class="pay-opt sel" id="po-resume" onclick="selPlan('resume',99,'Resume PDF')"><div class="pay-price">₹99</div><div class="pay-name">Resume PDF</div></div>
+      <div class="pay-opt" id="po-cover" onclick="selPlan('cover',49,'Cover Letter')"><div class="pay-price">₹49</div><div class="pay-name">Cover Letter</div></div>
+      <div class="pay-opt" id="po-bundle" onclick="selPlan('bundle',129,'Resume + Cover Letter')"><div class="pay-price">₹129</div><div class="pay-name">Resume + Letter</div><div class="pay-tag">Save ₹19</div></div>
+      <div class="pay-opt" id="po-unlimited" onclick="selPlan('unlimited',299,'Unlimited Monthly')"><div class="pay-price">₹299</div><div class="pay-name">Unlimited/mo</div><div class="pay-tag">Best value</div></div>
+    </div>
+    <div class="pfg"><label>Full Name</label><input type="text" id="p-name" placeholder="Rahul Sharma"/></div>
+    <div class="pfg"><label>Email Address</label><input type="email" id="p-email" placeholder="rahul@gmail.com"/></div>
+    <div class="pfg"><label>Phone Number</label><input type="tel" id="p-phone" placeholder="9876543210"/></div>
+    <div class="pfg"><label>Referral Code (optional — get ₹10 off)</label><input type="text" id="p-ref" placeholder="Friend's referral code"/></div>
+    <button class="do-pay" id="doPayBtn" onclick="doPayment()">Pay ₹99 via Razorpay →</button>
+    <div class="rzp-note">🔒 Secured by Razorpay · UPI · Cards · Net Banking</div>
+  </div>
+</div>
+
+<!-- ═══ REFERRAL SHEET ═══ -->
+<div class="ref-ov" id="refOv" onclick="closeRefOut(event)">
+  <div class="ref-sheet">
+    <div class="pay-handle"></div>
+    <h3 style="font-size:18px;font-weight:800;color:#fff;margin-bottom:4px">💰 Your Referral Dashboard</h3>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Earn ₹30 every time someone pays via your link.</p>
+    <div class="ref-stats">
+      <div class="rs"><div class="rs-v" id="rs-c">0</div><div class="rs-l">Clicks</div></div>
+      <div class="rs"><div class="rs-v" id="rs-cv">0</div><div class="rs-l">Paid</div></div>
+      <div class="rs"><div class="rs-v" id="rs-e">₹0</div><div class="rs-l">Earned</div></div>
+    </div>
+    <div class="ref-link-box">
+      <p style="font-size:12px;color:var(--muted);margin-bottom:8px">Your unique referral link:</p>
+      <div class="ref-link-val" id="refLinkVal">hiremagnet.in/ref/loading...</div>
+      <div class="ref-share-row">
+        <button class="rsh rsh-wa" onclick="refWA()">📱 WhatsApp</button>
+        <button class="rsh rsh-li" onclick="refLI()">💼 LinkedIn</button>
+        <button class="rsh rsh-cp" id="refCpBtn" onclick="refCopy()">📋 Copy</button>
+      </div>
+    </div>
+    <div class="wd-box">
+      <h4>Withdraw Earnings</h4>
+      <p>Min ₹100 · Paid every Monday via UPI</p>
+      <div class="pfg"><label>Your UPI ID</label><input type="text" id="upi-id" placeholder="yourname@upi"/></div>
+      <button onclick="withdraw()" style="width:100%;background:var(--green);color:#000;border:none;padding:12px;border-radius:100px;font-size:14px;font-weight:800;cursor:pointer;font-family:inherit">Request Withdrawal</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SUCCESS ═══ -->
+<div id="succ">
+  <div style="font-size:52px;margin-bottom:14px">🎉</div>
+  <h1 style="font-size:26px;font-weight:800;color:var(--or);margin-bottom:8px">Payment Successful!</h1>
+  <p style="font-size:14px;color:var(--muted);margin-bottom:4px" id="sPayId"></p>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:24px" id="sEmail"></p>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;width:100%;max-width:360px;margin-bottom:18px">
+    <h3 style="font-size:15px;font-weight:800;color:#fff;margin-bottom:6px">🔗 Earn ₹30 — Share Now!</h3>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Share HireMagnet and earn ₹30 every time a friend pays.</p>
+    <div style="font-size:12px;color:var(--text);font-family:monospace;background:var(--dark);padding:10px;border-radius:8px;margin-bottom:12px;word-break:break-all" id="sRefLink"></div>
+    <div style="display:flex;gap:8px">
+      <button onclick="succWA()" style="flex:1;background:#25D366;color:#fff;border:none;padding:11px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">📱 WhatsApp</button>
+      <button onclick="succCopy()" style="flex:1;background:var(--border);color:var(--text);border:none;padding:11px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit">📋 Copy</button>
+    </div>
+  </div>
+  <p style="font-size:12px;color:var(--muted)">Questions? <a href="mailto:hello@hiremagnet.in" style="color:var(--or)">hello@hiremagnet.in</a></p>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+const RZP_KEY = 'rzp_live_ShxFMwoP7B1pMU';
+// ═══════════════════════════════════════════
+
+let curStep=1, exps=[], edus=[], curTpl='modern', unlocked=false;
+let curPlan={id:'resume',amount:99,name:'Resume PDF'};
+let refCode=genCode(), refData={c:0,cv:0,e:0};
+let clText='';
+
+function genCode(){const s='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let r='';for(let i=0;i<8;i++)r+=s[Math.floor(Math.random()*s.length)];return r;}
+
+// ── INIT PUBLIC REF LINK ──
+window.addEventListener('DOMContentLoaded',()=>{
+  const link='hiremagnet.in/ref/'+refCode;
+  document.getElementById('pubLink').textContent=link;
+});
+
+// ── BUILDER ──
+function openBuilder(){
+  document.getElementById('bldOv').classList.add('show');
+  document.body.style.overflow='hidden';
+  goStep(1);
+}
+function closeBuilder(){
+  document.getElementById('bldOv').classList.remove('show');
+  document.body.style.overflow='';
+}
+function goStep(n){
+  curStep=n;
+  document.querySelectorAll('.bstep').forEach(s=>s.classList.remove('active'));
+  document.getElementById('bs'+n).classList.add('active');
+  for(let i=1;i<=5;i++){
+    const sb=document.getElementById('sb'+i);
+    sb.className='sb'+(i<n?' done':i===n?' active':'');
+  }
+  const titles=['','Basic Info','Experience','Education','Skills & More','Preview'];
+  document.getElementById('bhdTitle').textContent='Step '+n+' of 5 — '+titles[n];
+  document.getElementById('prevBtn').style.display=n>1?'block':'none';
+  document.getElementById('nextBtn').style.display=n===5?'none':'block';
+  document.getElementById('nextBtn').textContent=n===4?'Preview Resume →':'Next →';
+  document.getElementById('aiBtn').style.display=n<=4?'flex':'none';
+  document.getElementById('bldBody').scrollTop=0;
+  if(n===5)renderPreview();
+}
+function nextStep(){if(curStep<5)goStep(curStep+1);}
+function prevStep(){if(curStep>1)goStep(curStep-1);}
+
+// ── EXPERIENCE ──
+function addExp(){const id=Date.now();exps.push({id,role:'',company:'',from:'',to:'',desc:''});renderExps();}
+function renderExps(){
+  const c=document.getElementById('exp-list');c.innerHTML='';
+  exps.forEach((e,i)=>{
+    const d=document.createElement('div');d.className='block';
+    d.innerHTML=`<h5>Experience ${i+1}</h5><button class="rm-btn" onclick="rmExp(${e.id})">×</button>
+    <div class="fg"><label>Job Title</label><input type="text" value="${e.role}" placeholder="Software Engineer" oninput="exps[${i}].role=this.value"/></div>
+    <div class="fg"><label>Company</label><input type="text" value="${e.company}" placeholder="Company Name" oninput="exps[${i}].company=this.value"/></div>
+    <div class="fg-row"><div class="fg"><label>From</label><input type="text" value="${e.from}" placeholder="Jan 2022" oninput="exps[${i}].from=this.value"/></div><div class="fg"><label>To</label><input type="text" value="${e.to}" placeholder="Present" oninput="exps[${i}].to=this.value"/></div></div>
+    <div class="fg"><label>Key Achievements</label><textarea rows="3" placeholder="• Led team of 5 to deliver project early&#10;• Increased performance by 40%" oninput="exps[${i}].desc=this.value">${e.desc}</textarea></div>`;
+    c.appendChild(d);
+  });
+}
+function rmExp(id){exps=exps.filter(e=>e.id!==id);renderExps();}
+
+// ── EDUCATION ──
+function addEdu(){const id=Date.now();edus.push({id,degree:'',school:'',year:'',grade:''});renderEdus();}
+function renderEdus(){
+  const c=document.getElementById('edu-list');c.innerHTML='';
+  edus.forEach((e,i)=>{
+    const d=document.createElement('div');d.className='block';
+    d.innerHTML=`<h5>Education ${i+1}</h5><button class="rm-btn" onclick="rmEdu(${e.id})">×</button>
+    <div class="fg"><label>Degree / Course</label><input type="text" value="${e.degree}" placeholder="B.Tech Computer Science" oninput="edus[${i}].degree=this.value"/></div>
+    <div class="fg"><label>College / University</label><input type="text" value="${e.school}" placeholder="IIT Delhi" oninput="edus[${i}].school=this.value"/></div>
+    <div class="fg-row"><div class="fg"><label>Year</label><input type="text" value="${e.year}" placeholder="2024" oninput="edus[${i}].year=this.value"/></div><div class="fg"><label>CGPA / %</label><input type="text" value="${e.grade}" placeholder="8.5 CGPA" oninput="edus[${i}].grade=this.value"/></div></div>`;
+    c.appendChild(d);
+  });
+}
+function rmEdu(id){edus=edus.filter(e=>e.id!==id);renderEdus();}
+
+// ── AI FILL ──
+function aiGenerate(){
+  const btn=document.getElementById('aiBtn');
+  btn.textContent='✨ Filling...';btn.disabled=true;
+  setTimeout(()=>{
+    const title=gv('b-title')||'Professional';
+    if(!gv('b-summary'))sv('b-summary',`Results-driven ${title} with a passion for delivering impactful solutions. Proven track record of collaborating with cross-functional teams and driving projects to successful completion. Committed to continuous learning and professional growth.`);
+    if(exps.length===0){exps=[{id:Date.now(),role:title,company:'Previous Company',from:'Jan 2022',to:'Present',desc:'• Led key initiatives resulting in measurable business impact\n• Collaborated with cross-functional teams to deliver results\n• Improved team efficiency by 30% through process optimization'}];renderExps();}
+    if(edus.length===0){edus=[{id:Date.now()+1,degree:'Bachelor of Technology',school:'University',year:'2022',grade:'7.8 CGPA'}];renderEdus();}
+    if(!gv('b-skills'))sv('b-skills','Communication, Team Leadership, Problem Solving, Project Management, Data Analysis, MS Office');
+    unlocked=true;
+    btn.textContent='✨ AI Fill';btn.disabled=false;
+    renderPreview();
+    goStep(5);
+  },1800);
+}
+
+// ── TEMPLATE ──
+function setTpl(name,el){
+  curTpl=name;
+  document.querySelectorAll('.tpl-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  renderPreview();
+}
+
+// ── LIVE PREVIEW ──
+function lp(){
+  const f=[gv('b-name'),gv('b-title'),gv('b-email'),gv('b-phone')].filter(Boolean).length;
+  if(f>=3)unlocked=true;
+  if(curStep===5)renderPreview();
+  calcATS();
+}
+function calcATS(){
+  const c=[gv('b-name'),gv('b-title'),gv('b-email'),gv('b-skills'),exps.length>0,edus.length>0,gv('b-summary')&&gv('b-summary').length>40];
+  const s=Math.min(98,50+c.filter(Boolean).length*7);
+  if(gv('b-name')){
+    document.getElementById('atsVal').textContent=s;
+    document.getElementById('atsLbl').textContent=s>=85?'Excellent — ready to apply':s>=70?'Good — add more details':'Needs more information';
+  }
+}
+function renderPreview(){
+  const name=gv('b-name')||'Your Name';
+  const title=gv('b-title')||'Your Job Title';
+  const email=gv('b-email')||'email@example.com';
+  const phone=gv('b-phone')||'9876543210';
+  const city=gv('b-city')||'';
+  const summary=gv('b-summary')||'';
+  const skills=gv('b-skills')||'';
+  const c={modern:{hBg:'#FF5722',hTxt:'#fff',sec:'#FF5722',sk:'#FF572215',skB:'#FF572240',skT:'#CC4400'},minimal:{hBg:'transparent',hTxt:'#111',sec:'#111',sk:'#f5f5f5',skB:'#ddd',skT:'#333'},bold:{hBg:'#111',hTxt:'#fff',sec:'#FF5722',sk:'#f5f5f5',skB:'#ddd',skT:'#333'}}[curTpl];
+  const hdrExtra=curTpl==='minimal'?`border-bottom:3px solid #111;padding-bottom:12px;margin-bottom:14px`:`background:${c.hBg};margin:-18px -18px 14px;padding:18px;border-radius:10px 10px 0 0`;
+  let html=`<div style="${hdrExtra}">
+    <div style="font-size:19px;font-weight:800;color:${curTpl==='minimal'?'#111':c.hTxt};letter-spacing:-.5px">${name}</div>
+    <div style="font-size:12px;color:${curTpl==='minimal'?'#FF5722':'rgba(255,255,255,.85)'};margin-top:3px;font-weight:600">${title}</div>
+    <div style="font-size:11px;color:${curTpl==='minimal'?'#777':'rgba(255,255,255,.7)'};margin-top:5px">${[email,phone,city].filter(Boolean).join(' · ')}</div>
+  </div>`;
+  if(summary)html+=`<div style="margin-bottom:12px"><div style="font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:${c.sec};margin-bottom:5px;border-bottom:1px solid ${c.sec}40;padding-bottom:3px">SUMMARY</div><div style="font-size:11px;color:#555;line-height:1.65">${summary}</div></div>`;
+  if(exps.length)html+=`<div style="margin-bottom:12px"><div style="font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:${c.sec};margin-bottom:5px;border-bottom:1px solid ${c.sec}40;padding-bottom:3px">EXPERIENCE</div>${exps.map(e=>`<div style="margin-bottom:9px"><div style="display:flex;justify-content:space-between;flex-wrap:wrap"><div><div style="font-size:12px;font-weight:700;color:#111">${e.role||'Role'}</div><div style="font-size:11px;color:#555;font-weight:600">${e.company||'Company'}</div></div><div style="font-size:10px;color:#888">${[e.from,e.to].filter(Boolean).join(' – ')}</div></div>${e.desc?`<div style="font-size:11px;color:#555;line-height:1.6;margin-top:3px">${e.desc.replace(/\n/g,'<br>')}</div>`:''}</div>`).join('')}</div>`;
+  if(edus.length)html+=`<div style="margin-bottom:12px"><div style="font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:${c.sec};margin-bottom:5px;border-bottom:1px solid ${c.sec}40;padding-bottom:3px">EDUCATION</div>${edus.map(e=>`<div style="margin-bottom:7px"><div style="display:flex;justify-content:space-between;flex-wrap:wrap"><div><div style="font-size:12px;font-weight:700;color:#111">${e.degree||'Degree'}</div><div style="font-size:11px;color:#555">${e.school||'College'}</div></div><div style="font-size:10px;color:#888">${[e.year,e.grade].filter(Boolean).join(' · ')}</div></div></div>`).join('')}</div>`;
+  if(skills)html+=`<div><div style="font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:${c.sec};margin-bottom:5px;border-bottom:1px solid ${c.sec}40;padding-bottom:3px">SKILLS</div><div style="display:flex;flex-wrap:wrap;gap:4px">${skills.split(',').filter(s=>s.trim()).map(s=>`<span style="background:${c.sk};border:1px solid ${c.skB};color:${c.skT};padding:3px 9px;border-radius:100px;font-size:10px;font-weight:600">${s.trim()}</span>`).join('')}</div></div>`;
+  const pb=document.getElementById('prevBox');
+  pb.innerHTML=html;
+  if(!unlocked){
+    const lo=document.createElement('div');lo.className='lock-over';
+    lo.innerHTML=`<div class="lock-icon">🔒</div><h3>Your Resume is Ready!</h3><p>Fill in your details in the previous steps to unlock the full preview.</p><button class="unlock-btn" onclick="goStep(1)">Fill Details First</button>`;
+    pb.appendChild(lo);
+  }
+  calcATS();
+}
+function gv(id){const el=document.getElementById(id);return el?el.value:'';}
+function sv(id,val){const el=document.getElementById(id);if(el)el.value=val;}
+
+// ── COVER LETTER ──
+function openCoverLetter(){
+  document.getElementById('clOv').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function closeCLOut(e){if(e.target===document.getElementById('clOv')){document.getElementById('clOv').classList.remove('show');document.body.style.overflow='';}}
+function generateCL(){
+  const company=document.getElementById('cl-company').value.trim()||'the company';
+  const role=document.getElementById('cl-role').value.trim()||gv('b-title')||'the position';
+  const why=document.getElementById('cl-why').value.trim();
+  const name=gv('b-name')||'I';
+  const title=gv('b-title')||'professional';
+  const skills=gv('b-skills')||'relevant skills';
+  const btn=document.getElementById('clGenBtn');
+  btn.textContent='✨ Generating...';btn.disabled=true;
+  setTimeout(()=>{
+    clText=`Dear Hiring Manager,
+
+I am writing to express my strong interest in the ${role} position at ${company}. With my background as a ${title} and expertise in ${skills.split(',').slice(0,3).join(', ')}, I am confident I can make a meaningful contribution to your team.
+
+${why?why+'\n\n':''}Throughout my career, I have consistently delivered results by combining technical expertise with strong communication and collaboration skills. I am particularly drawn to ${company} because of its reputation for innovation and excellence in the industry.
+
+I am excited about the opportunity to bring my unique skills and experience to ${company} and am confident that my background aligns well with what you are looking for in a ${role}.
+
+Thank you for considering my application. I look forward to the opportunity to discuss how I can contribute to ${company}'s continued success.
+
+Warm regards,
+${name}`;
+    document.getElementById('clOut').textContent=clText;
+    document.getElementById('clOut').style.display='block';
+    document.getElementById('clDlBtn').style.display='block';
+    btn.textContent='✨ Regenerate';btn.disabled=false;
+  },1500);
+}
+function downloadCL(){
+  openPay('cover',49,'Cover Letter PDF');
+  document.getElementById('clOv').classList.remove('show');
+}
+
+// ── PAYMENT ──
+function openPay(planId,amount,name){
+  if(planId)selPlan(planId,amount,name);
+  document.getElementById('payOv').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function closePayOut(e){if(e.target===document.getElementById('payOv')){document.getElementById('payOv').classList.remove('show');document.body.style.overflow='';}}
+function selPlan(id,amount,name){
+  curPlan={id,amount,name};
+  document.querySelectorAll('.pay-opt').forEach(el=>el.classList.remove('sel'));
+  const el=document.getElementById('po-'+id);if(el)el.classList.add('sel');
+  document.getElementById('doPayBtn').textContent='Pay ₹'+amount+' via Razorpay →';
+}
+function doPayment(){
+  const name=document.getElementById('p-name').value.trim();
+  const email=document.getElementById('p-email').value.trim();
+  const phone=document.getElementById('p-phone').value.trim();
+  const ref=document.getElementById('p-ref').value.trim();
+  if(!name||!email||!phone){alert('Please fill in all fields.');return;}
+  if(!/\S+@\S+\.\S+/.test(email)){alert('Please enter a valid email address.');return;}
+  if(phone.replace(/\D/g,'').length<10){alert('Please enter a valid 10-digit phone number.');return;}
+  const disc=ref?10:0;
+  const amt=Math.max(49,curPlan.amount-disc);
+  var opts={
+    key:RZP_KEY,
+    amount:amt*100,currency:'INR',
+    name:'HireMagnet',
+    description:curPlan.name+(ref?' (Ref: -₹10)':''),
+    image:'',
+    handler:function(r){
+      document.getElementById('payOv').classList.remove('show');
+      document.getElementById('bldOv').classList.remove('show');
+      document.body.style.overflow='';
+      showSuccess(r.razorpay_payment_id,email);
+    },
+    prefill:{name,email,contact:phone},
+    notes:{plan:curPlan.id,referral:ref||'none'},
+    theme:{color:'#FF5722'},
+    modal:{ondismiss:function(){}}
+  };
+  var rzp=new Razorpay(opts);
+  rzp.on('payment.failed',function(r){alert('Payment failed: '+r.error.description+'\nPlease try again.');});
+  rzp.open();
+  document.getElementById('payOv').classList.remove('show');
+}
+function showSuccess(pid,email){
+  document.getElementById('sPayId').textContent='Payment ID: '+pid;
+  document.getElementById('sEmail').textContent='Your PDF will be sent to: '+email;
+  document.getElementById('sRefLink').textContent='hiremagnet.in/ref/'+refCode;
+  document.getElementById('succ').classList.add('show');
+}
+function succWA(){
+  const msg=encodeURIComponent('Just built my resume with HireMagnet 🎯\n\nAI-powered, ATS-optimized resume builder. Build FREE, pay only ₹99 to download!\n\nhttps://hiremagnet.in/ref/'+refCode);
+  window.open('https://wa.me/?text='+msg,'_blank');
+}
+function succCopy(){
+  navigator.clipboard.writeText('https://hiremagnet.in/ref/'+refCode).then(()=>alert('Link copied! Share to earn ₹30 per referral 💰'));
+}
+
+// ── REFERRAL ──
+function openRef(){
+  document.getElementById('refLinkVal').textContent='hiremagnet.in/ref/'+refCode;
+  document.getElementById('rs-c').textContent=refData.c;
+  document.getElementById('rs-cv').textContent=refData.cv;
+  document.getElementById('rs-e').textContent='₹'+refData.e;
+  document.getElementById('refOv').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function closeRefOut(e){if(e.target===document.getElementById('refOv')){document.getElementById('refOv').classList.remove('show');document.body.style.overflow='';}}
+function pubShareWA(){
+  const msg=encodeURIComponent('Build your resume FREE with AI 🚀\n\nHireMagnet — AI-powered resume builder. Build free, pay only ₹99 to download. ATS-optimized!\n\nhttps://hiremagnet.in/ref/'+refCode);
+  window.open('https://wa.me/?text='+msg,'_blank');
+}
+function pubCopy(){
+  navigator.clipboard.writeText('https://hiremagnet.in/ref/'+refCode).then(()=>{
+    const b=document.getElementById('pubCpBtn');b.textContent='✅ Copied!';setTimeout(()=>b.textContent='📋 Copy Link',2000);
+  });
+}
+function refWA(){
+  const msg=encodeURIComponent('Build your resume FREE with AI 🚀\n\nHireMagnet — pay only ₹99 to download. ATS-optimized!\n\nhttps://hiremagnet.in/ref/'+refCode);
+  window.open('https://wa.me/?text='+msg,'_blank');
+}
+function refLI(){window.open('https://www.linkedin.com/sharing/share-offsite/?url='+encodeURIComponent('https://hiremagnet.in/ref/'+refCode),'_blank');}
+function refCopy(){
+  navigator.clipboard.writeText('https://hiremagnet.in/ref/'+refCode).then(()=>{
+    const b=document.getElementById('refCpBtn');b.textContent='✅ Copied!';setTimeout(()=>b.textContent='📋 Copy',2000);
+  });
+}
+function withdraw(){
+  const upi=document.getElementById('upi-id').value.trim();
+  if(!upi){alert('Please enter your UPI ID');return;}
+  if(refData.e<100){alert('Minimum withdrawal is ₹100. Keep sharing to earn more! 💪');return;}
+  alert('Withdrawal of ₹'+refData.e+' requested to '+upi+'\nYou will receive payment by next Monday!');
+}
+
+// ── FAQ ──
+function faq(el){
+  const item=el.parentElement;
+  const open=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+  if(!open)item.classList.add('open');
+}
+
+// ── INIT ──
+addExp();
+addEdu();
+</script>
+</body>
+</html>
